@@ -1,0 +1,44 @@
+version: "3.8"
+services:
+    mvp_one:
+        container_name: mvp_one
+        build:
+            context: .
+            dockerfile: ./php/Dockerfile
+        expose:
+            - 9000:9000
+        volumes:
+            - .:/var/www/mvp1
+            - ./public:/var/www/mvp1/public
+        # depends_on:
+        #     - mvp_db
+        networks:
+            - app_network
+
+    # mvp_db:
+    #     container_name: mvp_db
+    #     image: mysql:latest
+    #     restart: always
+    #     volumes:
+    #         - ./storage/db-data:/var/lib/mysql
+    #     ports:
+    #         - 3307:3307
+    #     environment:
+    #         MYSQL_DATABASE: mvp
+    #         MYSQL_ROOT_PASSWORD: patrick
+    #         MYSQL_USER: root
+    #         MYSQL_PASSWORD: patrick
+    #     networks:
+    #         - app_network
+
+    # mvp_redis:
+    #     container_name: mvp_redis
+    #     image: redis:latest
+    #     ports:
+    #         - 6379:6379
+    #     networks:
+    #         - app_network
+
+networks:
+    app_network:
+        driver: bridge
